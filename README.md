@@ -66,24 +66,33 @@ The application will be available at `http://localhost:5173`
 
 ```
 src/
-├── components/         # React components
-│   ├── ChatMessage.tsx    # Message component
-│   ├── ChatInput.tsx     # Input component
-│   ├── CustomButton.tsx  # Custom button component
-│   ├── ThemeToggle.tsx   # Theme toggle component
-│   ├── TypingIndicator.tsx # Typing indicator component
-│   └── ui/              # Shared UI components
-├── contexts/           # React contexts
-│   └── ThemeContext.tsx # Theme context provider
-├── hooks/              # Custom React hooks
-│   └── useThemeContext.ts # Theme context hook
-├── lib/               # Utility functions and API
-│   ├── gemini.ts      # Gemini AI integration
-│   ├── models.ts      # Model configurations
-│   └── utils.ts       # Helper functions
-├── types/             # TypeScript type definitions
-│   └── theme.ts       # Theme-related types
-└── App.tsx           # Main application component
+├── components/                # React components
+│   ├── ChatMessage.tsx        # Message component
+│   ├── ChatInput.tsx          # Input component
+│   ├── CustomButton.tsx       # Custom button component
+│   ├── ThemeToggle.tsx        # Theme toggle component
+│   ├── TypingIndicator.tsx    # Typing indicator component
+│   └── ui/                    # Shared UI components
+│       ├── button.tsx         # Button component
+│       ├── button-variants.ts # Button styling variants
+│       └── dialog.tsx         # Dialog component
+├── contexts/                  # React contexts
+│   ├── ThemeContext.tsx       # Theme context provider
+│   └── theme-context.ts       # Theme context types and configuration
+├── hooks/                     # Custom React hooks
+│   └── useThemeContext.ts     # Theme context hook
+├── lib/                       # Utility functions and API
+│   ├── gemini.ts              # Gemini AI integration
+│   ├── models.ts              # Model configurations
+│   └── utils.ts               # Helper functions
+├── types/                     # TypeScript type definitions
+│   └── theme.ts               # Theme-related types
+├── App.tsx                    # Main application component
+├── index.css                  # Global styles
+├── main.tsx                   # Application entry point
+├── theme.ts                   # Theme configuration
+├── types.ts                   # Global type definitions
+└── vite-env.d.ts              # Vite environment types
 ```
 
 ## Available Scripts
