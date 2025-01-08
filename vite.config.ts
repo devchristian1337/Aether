@@ -8,8 +8,18 @@ export default defineConfig({
     react({
       jsxImportSource: "@emotion/react",
       babel: {
-        plugins: ["@emotion/babel-plugin"]
-      }
+        plugins: [
+          [
+            "@emotion/babel-plugin",
+            {
+              sourceMap: true,
+              autoLabel: "dev-only",
+              labelFormat: "[local]",
+              cssPropOptimization: true,
+            },
+          ],
+        ],
+      },
     }),
     createHtmlPlugin({
       minify: true,
@@ -37,8 +47,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Vendor chunk
           if (id.includes("node_modules")) {
+            if (id.includes("@emotion")) {
+              return "vendor-emotion";
+            }
             if (id.includes("react")) {
               return "vendor-react";
             }
@@ -50,7 +62,6 @@ export default defineConfig({
             }
             return "vendor";
           }
-          // Features chunk
           if (id.includes("/components/")) {
             return "features";
           }
@@ -62,6 +73,14 @@ export default defineConfig({
           }
           return "assets/[name]-[hash][extname]";
         },
+        entryFileNames: "assets/[name]-[hash].js",
+        chunkFileNames: (chunkInfo) => {
+          const name = chunkInfo.name;
+          if (name.includes("emotion")) {
+            return "assets/emotion-[hash].js";
+          }
+          return "assets/[name]-[hash].js";
+        },
       },
     },
     chunkSizeWarningLimit: 1000,
@@ -71,7 +90,15 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["react", "react-dom", "@mui/material", "@mui/icons-material", "@emotion/react", "@emotion/styled"],
+    include: [
+      "@emotion/react",
+      "@emotion/styled",
+      "@emotion/babel-plugin",
+      "react",
+      "react-dom",
+      "@mui/material",
+      "@mui/icons-material"
+    ],
     esbuildOptions: {
       target: "esnext"
     }
