@@ -5,7 +5,12 @@ import { createHtmlPlugin } from "vite-plugin-html";
 
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      jsxImportSource: "@emotion/react",
+      babel: {
+        plugins: ["@emotion/babel-plugin"]
+      }
+    }),
     createHtmlPlugin({
       minify: true,
       inject: {
@@ -66,7 +71,10 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["react", "react-dom", "@mui/material", "@mui/icons-material"],
+    include: ["react", "react-dom", "@mui/material", "@mui/icons-material", "@emotion/react", "@emotion/styled"],
+    esbuildOptions: {
+      target: "esnext"
+    }
   },
   server: {
     open: true,
