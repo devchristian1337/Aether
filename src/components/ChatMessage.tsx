@@ -17,7 +17,7 @@ interface ChatMessageProps {
   message: Message;
 }
 
-export const ChatMessage = ({ message }: ChatMessageProps) => {
+export default function ChatMessage({ message }: ChatMessageProps) {
   const [isCopied, setIsCopied] = useState(false);
   const isUser = message.role === "user";
 
@@ -205,4 +205,4 @@ export const ChatMessage = ({ message }: ChatMessageProps) => {
       </Box>
     </Box>
   );
-};
+}

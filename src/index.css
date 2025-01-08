@@ -1,11 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-body {
-  @apply bg-[#1c1c24] text-gray-100;
-}
 
 .chat-input {
   @apply bg-[#2a2a36] border-none focus:ring-1 focus:ring-[#40a9ff] text-gray-100 placeholder-gray-500;
@@ -24,7 +19,12 @@ body {
   @apply text-[#40a9ff] no-underline hover:underline;
 }
 
-.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
   @apply text-gray-100 font-bold;
 }
 
@@ -32,7 +32,8 @@ body {
   @apply text-gray-100;
 }
 
-.prose ul, .prose ol {
+.prose ul,
+.prose ol {
   @apply text-gray-100;
 }
 
@@ -44,7 +45,8 @@ body {
   @apply border-collapse;
 }
 
-.prose th, .prose td {
+.prose th,
+.prose td {
   @apply border border-gray-700 p-2;
 }
 
@@ -54,7 +56,6 @@ body {
 
 @layer base {
   :root {
-
     --background: 0 0% 100%;
 
     --foreground: 0 0% 3.9%;
@@ -103,10 +104,9 @@ body {
 
     --chart-5: 27 87% 67%;
 
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
   .dark {
-
     --background: 0 0% 3.9%;
 
     --foreground: 0 0% 98%;
@@ -153,7 +153,7 @@ body {
 
     --chart-4: 280 65% 60%;
 
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
   }
 }
 

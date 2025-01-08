@@ -1,40 +1,8 @@
-import React, { useState, DragEvent } from "react";
+import React, { useState, DragEvent, Suspense } from "react";
 import { Message, ChatState, GeminiError } from "./types";
-import { ChatMessage } from "./components/ChatMessage";
 import { ChatInput } from "./components/ChatInput";
-import TypingIndicator from "./components/TypingIndicator";
-import { ThemeToggle } from "./components/ThemeToggle";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Container,
-  Box,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Paper,
-  IconButton,
-  Snackbar,
-  Alert,
-  Tooltip,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-} from "@mui/material";
-import {
-  Message as MessageIcon,
-  AttachFile as AttachFileIcon,
-  Delete as DeleteIcon,
-  Close as CloseIcon,
-  GitHub as GitHubIcon,
-} from "@mui/icons-material";
-import { generateResponse } from "./lib/gemini";
 import { CustomButton } from "./components/CustomButton";
+import { generateResponse } from "./lib/gemini";
 import {
   MAX_FILE_SIZE_BYTES,
   MAX_FILE_SIZE_MB,
@@ -42,6 +10,48 @@ import {
 } from "./lib/utils";
 import { AVAILABLE_MODELS, DEFAULT_MODEL, ModelConfig } from "./lib/models";
 import { ThemeProvider } from "./contexts/ThemeContext";
+
+// Material-UI Components
+import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
+import IconButton from "@mui/material/IconButton";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import Tooltip from "@mui/material/Tooltip";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import CircularProgress from "@mui/material/CircularProgress";
+
+// Material-UI Icons
+import MessageIcon from "@mui/icons-material/Message";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from "@mui/icons-material/Close";
+import GitHubIcon from "@mui/icons-material/GitHub";
+
+// Lazy load components not needed immediately
+const ChatMessage = React.lazy(() => import("./components/ChatMessage"));
+const TypingIndicator = React.lazy(
+  () => import("./components/TypingIndicator")
+);
+const ThemeToggle = React.lazy(() => import("./components/ThemeToggle"));
+const ClearChatDialog = React.lazy(
+  () => import("./components/ClearChatDialog")
+);
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <Box sx={{ p: 2, display: "flex", justifyContent: "center" }}>
+    <CircularProgress />
+  </Box>
+);
 
 function AppContent() {
   const [state, setState] = useState<ChatState>({
@@ -308,7 +318,9 @@ function AppContent() {
               </Box>
             </Box>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-              <ThemeToggle />
+              <Suspense fallback={<LoadingFallback />}>
+                <ThemeToggle />
+              </Suspense>
               <FormControl
                 size="small"
                 sx={{
@@ -378,24 +390,13 @@ function AppContent() {
       </AppBar>
 
       {/* Confirmation Dialog */}
-      <Dialog
-        open={showClearConfirm}
-        onClose={() => setShowClearConfirm(false)}
-      >
-        <DialogTitle>Clear Chat</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to clear all messages? This action cannot be
-            undone.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowClearConfirm(false)}>Cancel</Button>
-          <Button onClick={handleClearChat} color="error" variant="contained">
-            Clear All
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Suspense fallback={<LoadingFallback />}>
+        <ClearChatDialog
+          open={showClearConfirm}
+          onClose={() => setShowClearConfirm(false)}
+          onConfirm={handleClearChat}
+        />
+      </Suspense>
 
       {/* Main Chat Area */}
       <Container
@@ -563,10 +564,16 @@ function AppContent() {
               </Box>
             ) : (
               state.messages.map((message) => (
-                <ChatMessage key={message.id} message={message} />
+                <Suspense key={message.id} fallback={<LoadingFallback />}>
+                  <ChatMessage message={message} />
+                </Suspense>
               ))
             )}
-            {state.isTyping && <TypingIndicator />}
+            {state.isTyping && (
+              <Suspense fallback={<LoadingFallback />}>
+                <TypingIndicator />
+              </Suspense>
+            )}
           </Box>
 
           {/* Input Area */}
