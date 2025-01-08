@@ -1,6 +1,6 @@
 # AI Chat Application with File Support
 
-![Aether Preview](https://iili.io/2gw3zmJ.png)
+![Aether Preview](https://iili.io/2gsWOiu.png)
 
 A modern React-based chat application that leverages Google's Generative AI (Gemini) for intelligent conversations. Built with TypeScript, Material-UI, and TailwindCSS, featuring file upload capabilities and a sleek user interface.
 
