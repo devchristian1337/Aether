@@ -67,15 +67,22 @@ The application will be available at `http://localhost:5173`
 ```
 src/
 ├── components/         # React components
-│   ├── ChatMessage/   # Message component
-│   ├── ChatInput/     # Input component
-│   ├── ui/            # Shared UI components
-│   └── ...
+│   ├── ChatMessage.tsx    # Message component
+│   ├── ChatInput.tsx     # Input component
+│   ├── CustomButton.tsx  # Custom button component
+│   ├── ThemeToggle.tsx   # Theme toggle component
+│   ├── TypingIndicator.tsx # Typing indicator component
+│   └── ui/              # Shared UI components
+├── contexts/           # React contexts
+│   └── ThemeContext.tsx # Theme context provider
+├── hooks/              # Custom React hooks
+│   └── useThemeContext.ts # Theme context hook
 ├── lib/               # Utility functions and API
 │   ├── gemini.ts      # Gemini AI integration
 │   ├── models.ts      # Model configurations
 │   └── utils.ts       # Helper functions
-├── types.ts           # TypeScript type definitions
+├── types/             # TypeScript type definitions
+│   └── theme.ts       # Theme-related types
 └── App.tsx           # Main application component
 ```
 

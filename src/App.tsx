@@ -3,6 +3,7 @@ import { Message, ChatState, GeminiError } from "./types";
 import { ChatMessage } from "./components/ChatMessage";
 import { ChatInput } from "./components/ChatInput";
 import TypingIndicator from "./components/TypingIndicator";
+import { ThemeToggle } from "./components/ThemeToggle";
 import {
   AppBar,
   Toolbar,
@@ -40,8 +41,9 @@ import {
   formatFileSize,
 } from "./lib/utils";
 import { AVAILABLE_MODELS, DEFAULT_MODEL, ModelConfig } from "./lib/models";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
-export default function App() {
+function AppContent() {
   const [state, setState] = useState<ChatState>({
     messages: [],
     isTyping: false,
@@ -232,7 +234,7 @@ export default function App() {
     <Box
       sx={{
         minHeight: "100vh",
-        bgcolor: "#1c1c24",
+        bgcolor: "background.default",
         display: "flex",
         flexDirection: "column",
       }}
@@ -241,9 +243,10 @@ export default function App() {
       <AppBar
         position="static"
         sx={{
-          bgcolor: "transparent",
+          bgcolor: "background.paper",
           boxShadow: "none",
-          borderBottom: "1px solid rgba(255,255,255,0.1)",
+          borderBottom: "1px solid",
+          borderColor: "divider",
         }}
       >
         <Container maxWidth="lg">
@@ -268,7 +271,7 @@ export default function App() {
                 sx={{
                   width: { xs: 40, sm: 48 },
                   height: { xs: 40, sm: 48 },
-                  bgcolor: "#40a9ff",
+                  bgcolor: "primary.main",
                   borderRadius: 2,
                   display: "flex",
                   alignItems: "center",
@@ -284,12 +287,12 @@ export default function App() {
                   variant="h5"
                   sx={{
                     fontWeight: "bold",
-                    color: "white",
+                    color: "text.primary",
                     fontSize: { xs: "1.25rem", sm: "1.5rem" },
                   }}
                 >
                   Ae
-                  <Box component="span" sx={{ color: "#40a9ff" }}>
+                  <Box component="span" sx={{ color: "primary.main" }}>
                     ther
                   </Box>
                 </Typography>
@@ -305,30 +308,31 @@ export default function App() {
               </Box>
             </Box>
             <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+              <ThemeToggle />
               <FormControl
                 size="small"
                 sx={{
                   minWidth: 200,
                   "& .MuiOutlinedInput-root": {
-                    color: "white",
+                    color: "text.primary",
                     "& fieldset": {
-                      borderColor: "rgba(255, 255, 255, 0.23)",
+                      borderColor: "divider",
                     },
                     "&:hover fieldset": {
-                      borderColor: "rgba(255, 255, 255, 0.4)",
+                      borderColor: "primary.main",
                     },
                     "&.Mui-focused fieldset": {
-                      borderColor: "#40a9ff",
+                      borderColor: "primary.main",
                     },
                   },
                   "& .MuiSelect-icon": {
-                    color: "rgba(255, 255, 255, 0.54)",
+                    color: "text.secondary",
                   },
                 }}
               >
                 <InputLabel
                   id="model-select-label"
-                  sx={{ color: "rgba(255, 255, 255, 0.7)" }}
+                  sx={{ color: "text.secondary" }}
                 >
                   Model
                 </InputLabel>
@@ -408,7 +412,7 @@ export default function App() {
         <Paper
           sx={{
             flex: 1,
-            bgcolor: "#2a2a36",
+            bgcolor: "background.paper",
             display: "flex",
             flexDirection: "column",
             borderRadius: { xs: 2, sm: 3 },
@@ -433,7 +437,8 @@ export default function App() {
                 left: "12px",
                 right: "12px",
                 bottom: "12px",
-                border: "3px dashed #40a9ff",
+                border: "3px dashed",
+                borderColor: "primary.main",
                 borderRadius: "inherit",
                 zIndex: 11,
                 animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
@@ -471,7 +476,7 @@ export default function App() {
             >
               <Box
                 sx={{
-                  backgroundColor: "rgba(64, 169, 255, 0.9)",
+                  backgroundColor: "primary.main",
                   borderRadius: 3,
                   p: 4,
                   boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
@@ -572,14 +577,15 @@ export default function App() {
                   <Box
                     key={index}
                     sx={{
-                      bgcolor: "rgba(64, 169, 255, 0.1)",
-                      color: "#40a9ff",
+                      bgcolor: "primary.main",
+                      color: "primary.contrastText",
                       px: 1.5,
                       py: 0.5,
                       borderRadius: "full",
                       display: "flex",
                       alignItems: "center",
                       gap: 1,
+                      opacity: 0.9,
                     }}
                   >
                     <Typography variant="body2">{file.name}</Typography>
@@ -589,7 +595,7 @@ export default function App() {
                         onClick={() =>
                           setFiles(files.filter((_, i) => i !== index))
                         }
-                        sx={{ color: "inherit", "&:hover": { color: "white" } }}
+                        sx={{ color: "inherit", "&:hover": { opacity: 0.8 } }}
                       >
                         <CloseIcon fontSize="small" />
                       </IconButton>
@@ -656,7 +662,7 @@ export default function App() {
               sx={{
                 color: "text.secondary",
                 "&:hover": {
-                  color: "white",
+                  color: "text.primary",
                   transform: "translateY(-1px)",
                 },
                 transition: "all 0.2s ease",
@@ -692,5 +698,13 @@ export default function App() {
         </Alert>
       </Snackbar>
     </Box>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }

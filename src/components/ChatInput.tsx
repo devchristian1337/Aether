@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextField, Box, Tooltip } from "@mui/material";
+import { TextField, Box, Tooltip, useTheme } from "@mui/material";
 import { ArrowUpward as ArrowUpwardIcon } from "@mui/icons-material";
 import { CustomButton } from "./CustomButton";
 
@@ -11,6 +11,7 @@ interface ChatInputProps {
 export function ChatInput({ onSend, disabled }: ChatInputProps) {
   const [input, setInput] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const theme = useTheme();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +43,7 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
             padding: "1.5px",
             borderRadius: "4px",
             background: isFocused
-              ? "linear-gradient(var(--angle), rgba(0, 0, 0, 0.3), #687aff)"
+              ? `linear-gradient(var(--angle), ${theme.palette.action.hover}, ${theme.palette.primary.main})`
               : "transparent",
             WebkitMask:
               "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
@@ -73,14 +74,14 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
           variant="outlined"
           sx={{
             "& .MuiOutlinedInput-root": {
-              backgroundColor: "#32323f",
+              backgroundColor: theme.palette.background.paper,
               borderRadius: "4px",
               height: "40px",
               "& fieldset": {
                 borderColor: "transparent",
               },
               "&:hover fieldset": {
-                borderColor: "rgba(64, 169, 255, 0.3)",
+                borderColor: theme.palette.primary.main + "4D", // 30% opacity
               },
               "&.Mui-focused fieldset": {
                 borderColor: "transparent",
