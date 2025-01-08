@@ -105,6 +105,7 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
             disabled={disabled || !input.trim()}
             variant="primary"
             size="small"
+            aria-label="Send message"
             sx={{
               minWidth: "40px",
               height: "40px",

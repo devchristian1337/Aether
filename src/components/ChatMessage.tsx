@@ -143,6 +143,7 @@ export const ChatMessage = ({ message }: ChatMessageProps) => {
                 onClick={handleCopy}
                 size="small"
                 className="copy-button"
+                aria-label={isCopied ? "Message copied" : "Copy message"}
                 sx={{
                   position: "absolute",
                   top: { xs: 4, sm: 6 },

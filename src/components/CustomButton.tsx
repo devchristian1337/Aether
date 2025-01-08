@@ -11,6 +11,7 @@ interface CustomButtonProps extends ButtonOwnProps {
   variant?: "primary" | "secondary";
   component?: React.ElementType;
   size?: "small" | "medium" | "large";
+  "aria-label"?: string;
 }
 
 const CustomButtonRoot = styled("button")<{
