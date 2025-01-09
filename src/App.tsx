@@ -1,4 +1,4 @@
-import React, { useState, DragEvent, Suspense } from "react";
+import React, { useState, DragEvent, Suspense, useRef, useEffect } from "react";
 import { Message, ChatState, GeminiError } from "./types";
 import { ChatInput } from "./components/ChatInput";
 import { CustomButton } from "./components/CustomButton";
@@ -58,6 +58,7 @@ function AppContent() {
     messages: [],
     isTyping: false,
   });
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const [files, setFiles] = useState<File[]>([]);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [selectedModel, setSelectedModel] =
@@ -239,6 +240,15 @@ function AppContent() {
 
     setFiles((prev) => [...prev, ...droppedFiles]);
   };
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Scroll to bottom when messages change or typing state changes
+  useEffect(() => {
+    scrollToBottom();
+  }, [state.messages, state.isTyping]);
 
   return (
     <Box
@@ -563,16 +573,19 @@ function AppContent() {
                 </Typography>
               </Box>
             ) : (
-              state.messages.map((message) => (
-                <Suspense key={message.id} fallback={<LoadingFallback />}>
-                  <ChatMessage message={message} />
-                </Suspense>
-              ))
-            )}
-            {state.isTyping && (
-              <Suspense fallback={<LoadingFallback />}>
-                <TypingIndicator />
-              </Suspense>
+              <>
+                {state.messages.map((message) => (
+                  <Suspense key={message.id} fallback={<LoadingFallback />}>
+                    <ChatMessage message={message} />
+                  </Suspense>
+                ))}
+                {state.isTyping && (
+                  <Suspense fallback={<LoadingFallback />}>
+                    <TypingIndicator />
+                  </Suspense>
+                )}
+                <div ref={messagesEndRef} />
+              </>
             )}
           </Box>
 
