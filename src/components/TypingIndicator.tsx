@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { TextShimmer } from "./ui/text-shimmer";
 
 const TypingIndicator = () => {
   return (
@@ -6,45 +7,15 @@ const TypingIndicator = () => {
       sx={{
         display: "flex",
         alignItems: "center",
-        gap: 0.5,
         p: { xs: 1.5, sm: 2 },
-        color: "text.secondary",
       }}
     >
-      <Box component="span" sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}>
-        Assistant is typing
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          gap: 0.5,
-        }}
+      <TextShimmer
+        className="text-sm sm:text-base [--base-color:#71717a] [--base-gradient-color:#18181b] dark:[--base-color:#a1a1aa] dark:[--base-gradient-color:#ffffff]"
+        duration={1}
       >
-        {[0, 1, 2].map((i) => (
-          <Box
-            key={i}
-            component="span"
-            sx={{
-              width: "4px",
-              height: "4px",
-              borderRadius: "50%",
-              backgroundColor: "text.secondary",
-              animation: "typingAnimation 1.4s infinite",
-              animationDelay: `${i * 0.2}s`,
-              "@keyframes typingAnimation": {
-                "0%, 60%, 100%": {
-                  transform: "translateY(0)",
-                  opacity: 0.4,
-                },
-                "30%": {
-                  transform: "translateY(-4px)",
-                  opacity: 1,
-                },
-              },
-            }}
-          />
-        ))}
-      </Box>
+        Assistant is typing
+      </TextShimmer>
     </Box>
   );
 };
