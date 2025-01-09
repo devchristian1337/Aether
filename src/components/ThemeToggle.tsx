@@ -1,6 +1,6 @@
 import IconButton from "@mui/material/IconButton";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import { styled } from "@mui/material/styles";
 import { useThemeContext } from "../hooks/useThemeContext";
 
@@ -33,9 +33,9 @@ export default function ThemeToggle() {
       title={`Switch to ${mode === "light" ? "dark" : "light"} mode`}
     >
       {mode === "light" ? (
-        <Brightness4Icon aria-hidden="true" />
+        <DarkModeIcon aria-hidden="true" />
       ) : (
-        <Brightness7Icon aria-hidden="true" />
+        <LightModeIcon aria-hidden="true" />
       )}
     </StyledIconButton>
   );
