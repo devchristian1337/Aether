@@ -18,14 +18,17 @@ A modern React-based chat application that leverages Google's Generative AI (Gem
 
 ## Tech Stack
 
-- React 19
+- React
 - TypeScript
 - Vite
 - Material-UI
 - TailwindCSS
 - Google Generative AI (Gemini)
 - Radix UI Components
-- Emotion (Styling)
+- Emotion
+- Framer Motion
+- Date-fns
+- React Markdown
 
 ## Prerequisites
 
@@ -67,32 +70,28 @@ The application will be available at `http://localhost:5173`
 ```
 src/
 ├── components/                # React components
-│   ├── ChatMessage.tsx        # Message component
-│   ├── ChatInput.tsx          # Input component
-│   ├── CustomButton.tsx       # Custom button component
-│   ├── ThemeToggle.tsx        # Theme toggle component
-│   ├── TypingIndicator.tsx    # Typing indicator component
-│   └── ui/                    # Shared UI components
-│       ├── button.tsx         # Button component
+│   ├── ChatMessage.tsx       # Message component
+│   ├── ChatInput.tsx         # Input component
+│   ├── CodeBlock.tsx         # Code block component
+│   ├── TypingIndicator.tsx   # Typing indicator component
+│   └── ui/                   # Shared UI components
+│       ├── button.tsx        # Button component
 │       ├── button-variants.ts # Button styling variants
-│       └── dialog.tsx         # Dialog component
-├── contexts/                  # React contexts
-│   ├── ThemeContext.tsx       # Theme context provider
-│   └── theme-context.ts       # Theme context types and configuration
-├── hooks/                     # Custom React hooks
-│   └── useThemeContext.ts     # Theme context hook
-├── lib/                       # Utility functions and API
-│   ├── gemini.ts              # Gemini AI integration
-│   ├── models.ts              # Model configurations
-│   └── utils.ts               # Helper functions
-├── types/                     # TypeScript type definitions
-│   └── theme.ts               # Theme-related types
-├── App.tsx                    # Main application component
-├── index.css                  # Global styles
-├── main.tsx                   # Application entry point
-├── theme.ts                   # Theme configuration
-├── types.ts                   # Global type definitions
-└── vite-env.d.ts              # Vite environment types
+│       ├── dialog.tsx        # Dialog component
+│       ├── flickering-grid.tsx # Grid animation component
+│       └── text-shimmer.tsx  # Text animation component
+├── contexts/                 # React contexts
+│   └── ThemeContext.tsx      # Theme context provider
+├── hooks/                    # Custom React hooks
+├── lib/                      # Utility functions and API
+├── types/                    # TypeScript type definitions
+│   ├── chat.ts              # Chat-related types
+│   └── theme.ts             # Theme-related types
+├── App.tsx                   # Main application component
+├── index.css                # Global styles
+├── main.tsx                 # Application entry point
+├── theme.ts                 # Theme configuration
+└── types.ts                 # Global type definitions
 ```
 
 ## Available Scripts
@@ -123,3 +122,14 @@ src/
 - Loading states
 - Error handling with user feedback
 - Clean and modern interface
+
+### Additional Features
+
+- 🎭 Framer Motion animations
+- 📅 Date formatting with date-fns
+- 🎨 Advanced UI components from Radix UI
+- ✨ Smooth animations and transitions
+- 📝 GitHub-flavored markdown support
+- 🔄 Real-time chat updates
+- 🎯 TypeScript strict mode enabled
+- 📱 Fully responsive design
