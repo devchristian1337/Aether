@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import * as React from 'react';
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 
@@ -20,7 +20,7 @@ export function TextShimmer({
 }: TextShimmerProps) {
   const MotionComponent = motion(Component);
 
-  const dynamicSpread = useMemo(() => {
+  const dynamicSpread = React.useMemo(() => {
     return children.length * spread;
   }, [children, spread]);
 
