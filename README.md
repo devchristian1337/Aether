@@ -69,29 +69,29 @@ The application will be available at `http://localhost:5173`
 
 ```
 src/
-├── components/                # React components
-│   ├── ChatMessage.tsx       # Message component
-│   ├── ChatInput.tsx         # Input component
-│   ├── CodeBlock.tsx         # Code block component
-│   ├── TypingIndicator.tsx   # Typing indicator component
-│   └── ui/                   # Shared UI components
-│       ├── button.tsx        # Button component
-│       ├── button-variants.ts # Button styling variants
-│       ├── dialog.tsx        # Dialog component
+├── components/                 # React components
+│   ├── ChatMessage.tsx         # Message component
+│   ├── ChatInput.tsx           # Input component
+│   ├── CodeBlock.tsx           # Code block component
+│   ├── TypingIndicator.tsx     # Typing indicator component
+│   └── ui/                     # Shared UI components
+│       ├── button.tsx          # Button component
+│       ├── button-variants.ts  # Button styling variants
+│       ├── dialog.tsx          # Dialog component
 │       ├── flickering-grid.tsx # Grid animation component
-│       └── text-shimmer.tsx  # Text animation component
-├── contexts/                 # React contexts
-│   └── ThemeContext.tsx      # Theme context provider
-├── hooks/                    # Custom React hooks
-├── lib/                      # Utility functions and API
-├── types/                    # TypeScript type definitions
-│   ├── chat.ts              # Chat-related types
-│   └── theme.ts             # Theme-related types
-├── App.tsx                   # Main application component
-├── index.css                # Global styles
-├── main.tsx                 # Application entry point
-├── theme.ts                 # Theme configuration
-└── types.ts                 # Global type definitions
+│       └── text-shimmer.tsx    # Text animation component
+├── contexts/                   # React contexts
+│   └── ThemeContext.tsx        # Theme context provider
+├── hooks/                      # Custom React hooks
+├── lib/                        # Utility functions and API
+├── types/                      # TypeScript type definitions
+│   ├── chat.ts                 # Chat-related types
+│   └── theme.ts                # Theme-related types
+├── App.tsx                     # Main application component
+├── index.css                   # Global styles
+├── main.tsx                    # Application entry point
+├── theme.ts                    # Theme configuration
+└── types.ts                    # Global type definitions
 ```
 
 ## Available Scripts
