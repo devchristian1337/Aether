@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Typography, Avatar, IconButton, Tooltip } from "@mui/material";
 import {
-  Message as MessageIcon,
+  SmartToy as SmartToyIcon,
   Person as PersonIcon,
 } from "@mui/icons-material";
 import {
@@ -67,7 +67,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         {isUser ? (
           <PersonIcon sx={{ fontSize: { xs: 16, sm: 20 } }} />
         ) : (
-          <MessageIcon sx={{ fontSize: { xs: 16, sm: 20 } }} />
+          <SmartToyIcon sx={{ fontSize: { xs: 16, sm: 20 } }} />
         )}
       </Avatar>
 
