@@ -5,12 +5,12 @@ export default {
     extend: {
       keyframes: {
         shimmer: {
-          '0%': { backgroundPosition: '200% center' },
-          '100%': { backgroundPosition: '-200% center' },
+          '0%': { backgroundPosition: '100% center' },
+          '100%': { backgroundPosition: '0% center' },
         },
       },
       animation: {
-        shimmer: 'shimmer 1s linear infinite',
+        shimmer: 'shimmer var(--duration) linear infinite',
       },
       fontFamily: {
         sans: ["Roboto", "sans-serif"],
