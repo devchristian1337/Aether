@@ -3,11 +3,30 @@ import { TextField, Box, Tooltip, useTheme } from "@mui/material";
 import { ArrowUpward as ArrowUpwardIcon } from "@mui/icons-material";
 import { CustomButton } from "./CustomButton";
 
+/**
+ * Interface for the props of the ChatInput component.
+ * @interface ChatInputProps
+ * @property {(message: string) => void} onSend - Callback function triggered when a message is sent
+ * @property {boolean} [disabled] - Optional flag to disable the input field and send button
+ */
 interface ChatInputProps {
   onSend: (message: string) => void;
   disabled?: boolean;
 }
 
+/**
+ * A component that renders a styled text input field with a send button for chat messages.
+ * Features include:
+ * - Animated focus state with gradient border
+ * - Disabled state handling
+ * - Empty message validation
+ * - Responsive design
+ * - Theme-aware styling
+ * 
+ * @component
+ * @param {ChatInputProps} props - The component props
+ * @returns {JSX.Element} A chat input form with send button
+ */
 export function ChatInput({ onSend, disabled }: ChatInputProps) {
   const [input, setInput] = useState("");
   const [isFocused, setIsFocused] = useState(false);

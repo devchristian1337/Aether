@@ -13,10 +13,29 @@ import { format } from "date-fns";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+/**
+ * Interface for the props of the ChatMessage component.
+ * @interface ChatMessageProps
+ * @property {Message} message - The message object containing content, role, timestamp, and optional file names.
+ */
 interface ChatMessageProps {
   message: Message;
 }
 
+/**
+ * A component that renders a chat message with support for markdown content, avatars, and file attachments.
+ * Features include:
+ * - Different styling for user and assistant messages
+ * - Markdown rendering with code block support
+ * - Copy to clipboard functionality for assistant messages
+ * - Timestamp display
+ * - File attachment display
+ * - Responsive design
+ * 
+ * @component
+ * @param {ChatMessageProps} props - The component props
+ * @returns {JSX.Element} A rendered chat message
+ */
 export default function ChatMessage({ message }: ChatMessageProps) {
   const [isCopied, setIsCopied] = useState(false);
   const isUser = message.role === "user";

@@ -1,6 +1,13 @@
 import { Box } from "@mui/material";
 import { TextShimmer } from "./ui/text-shimmer";
 
+/**
+ * A component that displays an animated typing indicator when the assistant is processing a response.
+ * Uses TextShimmer for the animation effect and adapts to the current theme.
+ * 
+ * @component
+ * @returns {JSX.Element} An animated typing indicator
+ */
 const TypingIndicator = () => {
   return (
     <Box
