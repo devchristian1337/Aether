@@ -1,6 +1,6 @@
 # AI Chat Application with File Support
 
-![Aether Preview](https://iili.io/2gsWOiu.png)
+![Aether Preview](https://iili.io/2rMvPus.png)
 
 A modern React-based chat application that leverages Google's Generative AI (Gemini) for intelligent conversations. Built with TypeScript, Material-UI, and TailwindCSS, featuring file upload capabilities and a sleek user interface.
 
@@ -8,27 +8,43 @@ A modern React-based chat application that leverages Google's Generative AI (Gem
 
 - 💬 Real-time chat interface with AI responses
 - 📁 File upload support (drag & drop or click to upload)
-- 🎨 Modern UI with Material-UI components
-- 🌙 Dark mode interface
+- 🎨 Modern UI with Material-UI components and TailwindCSS
+- 🌙 Dark mode interface with smooth transitions
 - ⚡ Built with Vite for optimal performance
 - 🔒 File size limits and validations
 - 💅 Styled with TailwindCSS and Material-UI
-- 📝 Markdown support for messages
+- 📝 GitHub-flavored Markdown support for messages
 - 🔄 Loading states and typing indicators
+- 📋 Copy to clipboard functionality for AI responses
+- 🖼️ Progressive image loading
+- ⌨️ Full keyboard accessibility support
+- 🎯 Error handling with user-friendly notifications
+- 🔍 Multiple Gemini model options
+- 📱 Fully responsive design for all devices
+
+## Available Models
+
+The application supports multiple Gemini models:
+
+- **Gemini 2.0 Flash** (Default) - Latest experimental flash model
+- **Gemini Experimental 1206** - Experimental model from December 2023
+- **Gemini 2.0 Flash Thinking** - Experimental thinking-optimized model
+
+All models support a maximum of 32,768 tokens.
 
 ## Tech Stack
 
-- React
+- React 19
 - TypeScript
 - Vite
-- Material-UI
+- Material-UI (MUI)
 - TailwindCSS
 - Google Generative AI (Gemini)
 - Radix UI Components
 - Emotion
 - Framer Motion
 - Date-fns
-- React Markdown
+- React Markdown with GFM support
 
 ## Prerequisites
 
@@ -69,30 +85,64 @@ The application will be available at `http://localhost:5173`
 
 ```
 src/
-├── components/                 # React components
-│   ├── ChatMessage.tsx         # Message component
-│   ├── ChatInput.tsx           # Input component
-│   ├── CodeBlock.tsx           # Code block component
-│   ├── TypingIndicator.tsx     # Typing indicator component
-│   └── ui/                     # Shared UI components
-│       ├── button.tsx          # Button component
-│       ├── button-variants.ts  # Button styling variants
-│       ├── dialog.tsx          # Dialog component
-│       ├── flickering-grid.tsx # Grid animation component
-│       └── text-shimmer.tsx    # Text animation component
-├── contexts/                   # React contexts
-│   └── ThemeContext.tsx        # Theme context provider
-├── hooks/                      # Custom React hooks
-├── lib/                        # Utility functions and API
-├── types/                      # TypeScript type definitions
-│   ├── chat.ts                 # Chat-related types
-│   └── theme.ts                # Theme-related types
-├── App.tsx                     # Main application component
-├── index.css                   # Global styles
-├── main.tsx                    # Application entry point
-├── theme.ts                    # Theme configuration
-└── types.ts                    # Global type definitions
+├── components/                # React components
+│   ├── ChatMessage.tsx        # Message component with markdown support
+│   ├── ChatInput.tsx          # Input component with file upload
+│   ├── ProgressiveImage.tsx   # Image loading component
+│   ├── TypingIndicator.tsx    # Typing animation component
+│   └── ui/                    # Shared UI components
+│       ├── button.tsx         # Custom button component
+│       ├── dialog.tsx         # Modal dialog component
+│       └── text-shimmer.tsx   # Text animation component
+├── contexts/                  # React contexts
+│   └── ThemeContext.tsx       # Theme management
+├── lib/                       # Utility functions and API
+│   ├── gemini.ts              # Gemini API integration
+│   └── models.ts              # Model configurations
+├── types/                     # TypeScript type definitions
+│   ├── chat.ts                # Chat-related types
+│   └── speech.ts              # Speech recognition types
+├── App.tsx                    # Main application component
+├── index.css                  # Global styles and Tailwind
+└── main.tsx                   # Application entry point
 ```
+
+## Features in Detail
+
+### Chat Interface
+- Real-time conversation with AI
+- GitHub-flavored Markdown rendering
+- Syntax highlighting for code blocks
+- Message timestamps
+- Typing indicators
+- Copy to clipboard functionality
+- Error handling with visual feedback
+
+### File Handling
+- Drag and drop file upload with visual feedback
+- Click to upload functionality
+- File size validation (configurable limits)
+- Multiple file support
+- Progressive image loading
+- Supported file types: images, PDFs, docs, text files
+
+### UI/UX Features
+- Responsive design for all screen sizes
+- Dark mode with smooth transitions
+- Loading states with animations
+- Error handling with user feedback
+- Clean and modern interface
+- Keyboard navigation support
+- Custom scrollbar styling
+- Tooltips for enhanced usability
+
+### Accessibility
+- ARIA labels for all interactive elements
+- Keyboard navigation support
+- Focus management
+- Screen reader friendly
+- High contrast text
+- Semantic HTML structure
 
 ## Available Scripts
 
@@ -100,36 +150,3 @@ src/
 - `npm run build` - Build for production
 - `npm run lint` - Run ESLint
 - `npm run preview` - Preview production build
-
-## Features in Detail
-
-### Chat Interface
-- Real-time conversation with AI
-- Markdown rendering support
-- Timestamp display for messages
-- Typing indicators
-
-### File Handling
-- Drag and drop file upload
-- Click to upload functionality
-- File size validation
-- Multiple file support
-- File size limits (configurable)
-
-### UI/UX
-- Responsive design
-- Dark mode
-- Loading states
-- Error handling with user feedback
-- Clean and modern interface
-
-### Additional Features
-
-- 🎭 Framer Motion animations
-- 📅 Date formatting with date-fns
-- 🎨 Advanced UI components from Radix UI
-- ✨ Smooth animations and transitions
-- 📝 GitHub-flavored markdown support
-- 🔄 Real-time chat updates
-- 🎯 TypeScript strict mode enabled
-- 📱 Fully responsive design

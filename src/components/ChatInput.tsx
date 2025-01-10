@@ -51,7 +51,7 @@ export function ChatInput({ onSend, disabled, error }: ChatInputProps) {
   };
 
   const handleVoiceInput = (transcript: string) => {
-    setInput((prev) => prev + (prev ? ' ' : '') + transcript);
+    setInput((prev) => prev + (prev ? " " : "") + transcript);
   };
 
   return (
@@ -156,7 +156,10 @@ export function ChatInput({ onSend, disabled, error }: ChatInputProps) {
           }}
         />
       </Box>
-      <VoiceInput onTranscript={handleVoiceInput} disabled={disabled || isSubmitting} />
+      <VoiceInput
+        onTranscript={handleVoiceInput}
+        disabled={disabled || isSubmitting}
+      />
       <Tooltip
         title={
           isSubmitting

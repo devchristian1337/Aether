@@ -19,7 +19,15 @@ export interface SpeechRecognition extends EventTarget {
 }
 
 export interface SpeechRecognitionErrorEvent extends Event {
-  error: 'no-speech' | 'aborted' | 'audio-capture' | 'network' | 'not-allowed' | 'service-not-allowed' | 'bad-grammar' | 'language-not-supported';
+  error:
+    | "no-speech"
+    | "aborted"
+    | "audio-capture"
+    | "network"
+    | "not-allowed"
+    | "service-not-allowed"
+    | "bad-grammar"
+    | "language-not-supported";
   message: string;
 }
 
@@ -52,4 +60,4 @@ declare global {
     webkitSpeechRecognition: new () => SpeechRecognition;
     webkitAudioContext: typeof AudioContext;
   }
-} 
+}

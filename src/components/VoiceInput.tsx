@@ -16,30 +16,36 @@ const playStartSound = () => {
   oscillator.connect(gainNode);
   gainNode.connect(audioContext.destination);
 
-  oscillator.type = 'sine';
+  oscillator.type = "sine";
   oscillator.frequency.setValueAtTime(880, audioContext.currentTime); // A5 note
   gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
 
   oscillator.start();
-  gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+  gainNode.gain.exponentialRampToValueAtTime(
+    0.01,
+    audioContext.currentTime + 0.2
+  );
   oscillator.stop(audioContext.currentTime + 0.2);
 };
 
 export function VoiceInput({ onTranscript, disabled }: VoiceInputProps) {
   const [isListening, setIsListening] = useState(false);
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(
+    null
+  );
   const [error, setError] = useState<string>("");
   const theme = useTheme();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
       if (SpeechRecognition) {
         const recognition = new SpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = true;
         // Set to empty string for automatic language detection
-        recognition.lang = '';
+        recognition.lang = "";
 
         recognition.onresult = (event) => {
           const lastResult = event.results[event.results.length - 1];
@@ -90,26 +96,33 @@ export function VoiceInput({ onTranscript, disabled }: VoiceInputProps) {
   }, [recognition, isListening]);
 
   return (
-    <Box sx={{ display: 'flex', gap: 1 }}>
-      <Tooltip title={
-        error ? error :
-        isListening ? "Stop listening" :
-        disabled ? "Voice input disabled" :
-        "Start voice input (automatic language detection)"
-      }>
+    <Box sx={{ display: "flex", gap: 1 }}>
+      <Tooltip
+        title={
+          error
+            ? error
+            : isListening
+            ? "Stop listening"
+            : disabled
+            ? "Voice input disabled"
+            : "Start voice input (automatic language detection)"
+        }
+      >
         <span>
           <IconButton
             onClick={isListening ? stopListening : startListening}
             disabled={disabled || !!error}
             aria-label={isListening ? "Stop voice input" : "Start voice input"}
             sx={{
-              color: isListening ? theme.palette.error.main : theme.palette.primary.main,
-              backgroundColor: isListening 
-                ? theme.palette.error.main + "14" 
+              color: isListening
+                ? theme.palette.error.main
+                : theme.palette.primary.main,
+              backgroundColor: isListening
+                ? theme.palette.error.main + "14"
                 : theme.palette.primary.main + "14",
               "&:hover": {
-                backgroundColor: isListening 
-                  ? theme.palette.error.main + "24" 
+                backgroundColor: isListening
+                  ? theme.palette.error.main + "24"
                   : theme.palette.primary.main + "24",
               },
               transition: "all 0.2s ease-in-out",
@@ -136,4 +149,4 @@ export function VoiceInput({ onTranscript, disabled }: VoiceInputProps) {
       </Tooltip>
     </Box>
   );
-} 
+}
