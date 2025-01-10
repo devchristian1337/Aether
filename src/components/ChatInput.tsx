@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TextField, Box, Tooltip, useTheme } from "@mui/material";
 import { ArrowUpward as ArrowUpwardIcon } from "@mui/icons-material";
 import { CustomButton } from "./CustomButton";
+import { VoiceInput } from "./VoiceInput";
 
 /**
  * Interface for the props of the ChatInput component.
@@ -47,6 +48,10 @@ export function ChatInput({ onSend, disabled, error }: ChatInputProps) {
         setIsSubmitting(false);
       }
     }
+  };
+
+  const handleVoiceInput = (transcript: string) => {
+    setInput((prev) => prev + (prev ? ' ' : '') + transcript);
   };
 
   return (
@@ -151,10 +156,11 @@ export function ChatInput({ onSend, disabled, error }: ChatInputProps) {
           }}
         />
       </Box>
+      <VoiceInput onTranscript={handleVoiceInput} disabled={disabled || isSubmitting} />
       <Tooltip
         title={
           isSubmitting
-            ? "Sending..."
+            ? "Sending message..."
             : disabled
             ? "Chat disabled"
             : !input.trim()
