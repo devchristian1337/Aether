@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Box, Typography, Avatar, IconButton, Tooltip } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Avatar,
+  IconButton,
+  Tooltip,
+  useTheme,
+} from "@mui/material";
+import ProgressiveImage from "./ProgressiveImage";
 import {
   SmartToy as SmartToyIcon,
   Person as PersonIcon,
@@ -31,7 +39,7 @@ interface ChatMessageProps {
  * - Timestamp display
  * - File attachment display
  * - Responsive design
- * 
+ *
  * @component
  * @param {ChatMessageProps} props - The component props
  * @returns {JSX.Element} A rendered chat message
@@ -39,6 +47,7 @@ interface ChatMessageProps {
 export default function ChatMessage({ message }: ChatMessageProps) {
   const [isCopied, setIsCopied] = useState(false);
   const isUser = message.role === "user";
+  const theme = useTheme();
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(message.content);
@@ -48,6 +57,11 @@ export default function ChatMessage({ message }: ChatMessageProps) {
 
   return (
     <Box
+      role="article"
+      aria-label={`${isUser ? "Your" : "Assistant's"} message from ${format(
+        new Date(message.timestamp),
+        "HH:mm"
+      )}`}
       sx={{
         display: "flex",
         gap: { xs: 1, sm: 1.5 },
@@ -58,6 +72,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
     >
       {/* Avatar */}
       <Avatar
+        aria-label={`${isUser ? "User" : "Assistant"} avatar`}
         sx={{
           bgcolor: isUser ? "#40a9ff" : "#10b981",
           width: { xs: 28, sm: 32 },
@@ -98,8 +113,16 @@ export default function ChatMessage({ message }: ChatMessageProps) {
 
         {/* Message Bubble */}
         <Box
+          role="region"
+          aria-label={`Message ${message.error ? "with error" : "content"}`}
           sx={{
-            bgcolor: isUser ? "#40a9ff" : "#2a2a36",
+            width: "100%",
+            position: "relative",
+            bgcolor: message.error
+              ? theme.palette.error.dark
+              : isUser
+              ? "#40a9ff"
+              : "#2a2a36",
             color: "white",
             py: { xs: 1, sm: 1.25 },
             px: { xs: 1.5, sm: 2 },
@@ -107,9 +130,28 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             borderRadius: { xs: 1.5, sm: 2 },
             borderTopRightRadius: isUser ? 0 : { xs: 1.5, sm: 2 },
             borderTopLeftRadius: isUser ? { xs: 1.5, sm: 2 } : 0,
-            boxShadow: "0 1px 8px rgba(0,0,0,0.1)",
-            width: "100%",
-            position: "relative",
+            boxShadow: message.error
+              ? `0 1px 8px ${theme.palette.error.main}40`
+              : "0 1px 8px rgba(0,0,0,0.1)",
+            ...(message.error && {
+              "&::before": {
+                content: '"⚠"',
+                position: "absolute",
+                top: "-8px",
+                left: isUser ? "auto" : "-8px",
+                right: isUser ? "-8px" : "auto",
+                backgroundColor: theme.palette.error.main,
+                color: "white",
+                width: "16px",
+                height: "16px",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "10px",
+                boxShadow: "0 1px 4px rgba(0,0,0,0.2)",
+              },
+            }),
             "& pre": {
               bgcolor: "rgba(0,0,0,0.2)",
               p: { xs: 1, sm: 1.5 },
@@ -188,37 +230,63 @@ export default function ChatMessage({ message }: ChatMessageProps) {
           )}
         </Box>
 
-        {/* Attached Files (if any) */}
-        {message.fileNames && message.fileNames.length > 0 && (
+        {/* Attachments */}
+        {message.attachments && message.attachments.length > 0 && (
           <Box
+            role="list"
+            aria-label="Attachments"
             sx={{
               display: "flex",
-              gap: 0.5,
+              gap: 1,
               flexWrap: "wrap",
               justifyContent: isUser ? "flex-end" : "flex-start",
               maxWidth: "100%",
+              mt: 1,
             }}
           >
-            {message.fileNames.map((fileName, index) => (
-              <Typography
-                key={index}
-                variant="caption"
-                sx={{
-                  bgcolor: "rgba(64, 169, 255, 0.1)",
-                  color: "#40a9ff",
-                  px: { xs: 0.75, sm: 1 },
-                  py: 0.25,
-                  borderRadius: "full",
-                  fontSize: { xs: "0.7rem", sm: "0.75rem" },
-                  maxWidth: "100%",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {fileName}
-              </Typography>
-            ))}
+            {message.attachments.map((attachment, index) =>
+              attachment.type === "image" ? (
+                <Box
+                  key={index}
+                  role="listitem"
+                  aria-label={`Image: ${attachment.fileName}`}
+                  sx={{
+                    width: { xs: 150, sm: 200 },
+                    height: { xs: 150, sm: 200 },
+                    borderRadius: 1,
+                    overflow: "hidden",
+                  }}
+                >
+                  <ProgressiveImage
+                    src={attachment.url}
+                    alt={attachment.fileName}
+                    width="100%"
+                    height="100%"
+                  />
+                </Box>
+              ) : (
+                <Typography
+                  key={index}
+                  variant="caption"
+                  role="listitem"
+                  aria-label={`File: ${attachment.fileName}`}
+                  sx={{
+                    bgcolor: "rgba(64, 169, 255, 0.1)",
+                    color: "#40a9ff",
+                    px: { xs: 0.75, sm: 1 },
+                    py: 0.25,
+                    borderRadius: "full",
+                    fontSize: { xs: "0.7rem", sm: "0.75rem" },
+                    maxWidth: "100%",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {attachment.fileName}
+                </Typography>
+              )
+            )}
           </Box>
         )}
       </Box>

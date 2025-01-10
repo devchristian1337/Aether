@@ -10,8 +10,9 @@ import { CustomButton } from "./CustomButton";
  * @property {boolean} [disabled] - Optional flag to disable the input field and send button
  */
 interface ChatInputProps {
-  onSend: (message: string) => void;
+  onSend: (message: string) => Promise<void>;
   disabled?: boolean;
+  error?: string;
 }
 
 /**
@@ -22,21 +23,29 @@ interface ChatInputProps {
  * - Empty message validation
  * - Responsive design
  * - Theme-aware styling
- * 
+ *
  * @component
  * @param {ChatInputProps} props - The component props
  * @returns {JSX.Element} A chat input form with send button
  */
-export function ChatInput({ onSend, disabled }: ChatInputProps) {
+export function ChatInput({ onSend, disabled, error }: ChatInputProps) {
   const [input, setInput] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const theme = useTheme();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (input.trim()) {
-      onSend(input);
-      setInput("");
+    if (input.trim() && !isSubmitting) {
+      setIsSubmitting(true);
+      try {
+        await onSend(input);
+        setInput("");
+      } catch (error) {
+        // Error handling is done through the error prop
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -44,6 +53,8 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
     <Box
       component="form"
       onSubmit={handleSubmit}
+      role="form"
+      aria-label="Chat message input"
       sx={{
         display: "flex",
         gap: 2,
@@ -88,10 +99,33 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
           onChange={(e) => setInput(e.target.value)}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          disabled={disabled}
-          placeholder="Enter something..."
+          disabled={disabled || isSubmitting}
+          error={!!error}
+          helperText={error}
+          placeholder={isSubmitting ? "Sending..." : "Enter something..."}
           variant="outlined"
+          aria-label="Message input"
+          aria-invalid={!!error}
+          aria-describedby={error ? "chat-input-error" : undefined}
+          aria-busy={isSubmitting}
+          inputProps={{
+            "aria-label": "Chat message",
+            role: "textbox",
+            "aria-multiline": "false",
+          }}
+          FormHelperTextProps={{
+            id: "chat-input-error",
+            role: "alert",
+            "aria-live": "polite",
+            sx: {
+              position: "absolute",
+              bottom: "-20px",
+              color: theme.palette.error.main,
+              margin: 0,
+            },
+          }}
           sx={{
+            mb: error ? 2.5 : 0,
             "& .MuiOutlinedInput-root": {
               backgroundColor: theme.palette.background.paper,
               borderRadius: "4px",
@@ -117,21 +151,45 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
           }}
         />
       </Box>
-      <Tooltip title={!input.trim() ? "Empty message" : "Send message"}>
+      <Tooltip
+        title={
+          isSubmitting
+            ? "Sending..."
+            : disabled
+            ? "Chat disabled"
+            : !input.trim()
+            ? "Empty message"
+            : error
+            ? "Failed to send - Click to retry"
+            : "Send message"
+        }
+      >
         <span>
           <CustomButton
             type="submit"
-            disabled={disabled || !input.trim()}
+            disabled={disabled || (!input.trim() && !error) || isSubmitting}
             variant="primary"
             size="small"
-            aria-label="Send message"
+            aria-label={isSubmitting ? "Sending message" : "Send message"}
             sx={{
               minWidth: "40px",
               height: "40px",
               padding: 0,
+              opacity: isSubmitting ? 0.7 : 1,
+              transition: "opacity 0.3s ease",
+              ...(error && {
+                color: theme.palette.error.main,
+                borderColor: theme.palette.error.main,
+              }),
             }}
           >
-            <ArrowUpwardIcon sx={{ fontSize: "20px" }} />
+            <ArrowUpwardIcon
+              sx={{
+                fontSize: "20px",
+                transform: isSubmitting ? "translateY(-2px)" : "none",
+                transition: "transform 0.3s ease",
+              }}
+            />
           </CustomButton>
         </span>
       </Tooltip>

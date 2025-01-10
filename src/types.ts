@@ -1,9 +1,18 @@
+export interface Attachment {
+  fileName: string;
+  url: string;
+  type: "image" | "other";
+  thumbnailUrl?: string;
+}
+
 export interface Message {
   id: string;
   content: string;
   role: "user" | "assistant";
   timestamp: Date;
-  fileNames?: string[];
+  attachments?: Attachment[];
+  error?: boolean;
+  errorDetails?: string;
 }
 
 export interface ChatState {
