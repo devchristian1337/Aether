@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import {
   Box,
   Typography,
@@ -20,6 +20,7 @@ import { Message } from "../types";
 import { format } from "date-fns";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { CodeBlock } from "./ui/code-block";
 
 /**
  * Interface for the props of the ChatMessage component.
@@ -45,14 +46,14 @@ interface ChatMessageProps {
  * @returns {JSX.Element} A rendered chat message
  */
 export default function ChatMessage({ message }: ChatMessageProps) {
-  const [isCopied, setIsCopied] = useState(false);
+  const [isCopied, setCopied] = React.useState(false);
   const isUser = message.role === "user";
   const theme = useTheme();
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(message.content);
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -153,10 +154,8 @@ export default function ChatMessage({ message }: ChatMessageProps) {
               },
             }),
             "& pre": {
-              bgcolor: "rgba(0,0,0,0.2)",
-              p: { xs: 1, sm: 1.5 },
-              borderRadius: 1,
-              overflow: "auto",
+              p: 0,
+              m: 0,
               my: 0.75,
               maxHeight: { xs: "300px", sm: "400px" },
             },
@@ -189,9 +188,33 @@ export default function ChatMessage({ message }: ChatMessageProps) {
                   {children}
                 </Typography>
               ),
-              pre: ({ children }) => <pre>{children}</pre>,
-              code: ({ className, children }) => {
-                return <code className={className}>{children}</code>;
+              pre: ({ children }) => {
+                const child = React.Children.only(
+                  children
+                ) as React.ReactElement<{
+                  className?: string;
+                  children: string;
+                }>;
+                const match = /language-(\w+)/.exec(
+                  child.props.className || ""
+                );
+                const language = match ? match[1] : "text";
+                const filename = `file-name.${language}`;
+
+                return (
+                  <CodeBlock
+                    language={language}
+                    code={child.props.children}
+                    filename={filename}
+                  />
+                );
+              },
+              code: (props: React.HTMLProps<HTMLElement>) => {
+                const match = /language-(\w+)/.exec(props.className || "");
+                if (!match) {
+                  return <code {...props} />;
+                }
+                return props.children;
               },
             }}
           >

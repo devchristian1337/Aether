@@ -29,7 +29,6 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import CircularProgress from "@mui/material/CircularProgress";
 
 // Material-UI Icons
 import MessageIcon from "@mui/icons-material/Message";
@@ -46,13 +45,6 @@ const TypingIndicator = React.lazy(
 const ThemeToggle = React.lazy(() => import("./components/ThemeToggle"));
 const ClearChatDialog = React.lazy(
   () => import("./components/ClearChatDialog")
-);
-
-// Loading fallback component
-const LoadingFallback = () => (
-  <Box sx={{ p: 2, display: "flex", justifyContent: "center" }}>
-    <CircularProgress />
-  </Box>
 );
 
 function AppContent() {
@@ -362,7 +354,7 @@ function AppContent() {
                 </Box>
               </Box>
               <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-                <Suspense fallback={<LoadingFallback />}>
+                <Suspense fallback={null}>
                   <ThemeToggle />
                 </Suspense>
                 <FormControl
@@ -434,7 +426,7 @@ function AppContent() {
         </AppBar>
 
         {/* Confirmation Dialog */}
-        <Suspense fallback={<LoadingFallback />}>
+        <Suspense fallback={null}>
           <ClearChatDialog
             open={showClearConfirm}
             onClose={() => setShowClearConfirm(false)}
@@ -609,12 +601,12 @@ function AppContent() {
               ) : (
                 <>
                   {state.messages.map((message) => (
-                    <Suspense key={message.id} fallback={<LoadingFallback />}>
+                    <Suspense key={message.id} fallback={null}>
                       <ChatMessage message={message} />
                     </Suspense>
                   ))}
                   {state.isTyping && (
-                    <Suspense fallback={<LoadingFallback />}>
+                    <Suspense fallback={null}>
                       <TypingIndicator />
                     </Suspense>
                   )}

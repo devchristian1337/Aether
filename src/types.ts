@@ -13,6 +13,7 @@ export interface Message {
   attachments?: Attachment[];
   error?: boolean;
   errorDetails?: string;
+  fileNames?: string[];
 }
 
 export interface ChatState {
