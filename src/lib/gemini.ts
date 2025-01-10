@@ -1,16 +1,17 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ModelConfig, DEFAULT_MODEL } from "./models";
+import { generateHyperbolicResponse } from "./hyperbolic";
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
-if (!API_KEY) {
+if (!GEMINI_API_KEY) {
   throw new Error(
     "API key not found. Please add your Gemini API key to the .env file as VITE_GEMINI_API_KEY. " +
       "You can get an API key from https://makersuite.google.com/app/apikey"
   );
 }
 
-const genAI = new GoogleGenerativeAI(API_KEY);
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 async function fileToGenerativePart(file: File) {
   // Validate file type and size
@@ -71,6 +72,12 @@ export async function generateResponse(
   files?: File[],
   modelConfig: ModelConfig = DEFAULT_MODEL
 ): Promise<string> {
+  // If it's a Hyperbolic model, use the Hyperbolic API
+  if (modelConfig.provider === "hyperbolic") {
+    return generateHyperbolicResponse(prompt, modelConfig);
+  }
+
+  // Otherwise, use Gemini API
   try {
     const model = genAI.getGenerativeModel({
       model: modelConfig.id,
