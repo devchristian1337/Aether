@@ -70,6 +70,7 @@ yarn install
 3. Create a `.env` file in the root directory and add your Gemini API key:
 ```env
 VITE_GEMINI_API_KEY=your_api_key_here
+VITE_HYPERBOLIC_API_KEY=your_api_key_here
 ```
 
 4. Start the development server:

@@ -1,3 +1,7 @@
+// These types are part of the Web Speech API TypeScript definitions
+// They are used to provide type safety for the browser's SpeechRecognition API
+// @public
+
 export interface SpeechRecognition extends EventTarget {
   continuous: boolean;
   interimResults: boolean;
