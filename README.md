@@ -24,13 +24,23 @@ A modern React-based chat application that leverages Google's Generative AI (Gem
 
 ## Available Models
 
-The application supports multiple Gemini models:
+The application supports multiple AI models:
 
-- **Gemini 2.0 Flash** (Default) - Latest experimental flash model
+### Gemini Models
+- **Gemini 2.0 Flash** (Default) - Latest flash model
 - **Gemini Experimental 1206** - Experimental model from December 2023
 - **Gemini 2.0 Flash Thinking** - Experimental thinking-optimized model
+- **Gemini 2.0 Pro** - Latest Gemini 2.0 Pro experimental model
 
-All models support a maximum of 32,768 tokens.
+### Other Models
+- **Llama 3.2** - Meta's Llama 3.2 3B model optimized for instruction following
+- **Qwen 2.5 Coder** - Qwen 2.5 32B model optimized for coding tasks
+- **DeepSeek V3** - DeepSeek's latest V3 model for general-purpose tasks
+
+Model capabilities vary:
+- Gemini models support up to 32,768 tokens
+- Llama 3.2 and DeepSeek V3 support up to 131,072 context length with 4,096 max tokens
+- Qwen 2.5 Coder has 512 tokens for both context and output
 
 ## Tech Stack
 
