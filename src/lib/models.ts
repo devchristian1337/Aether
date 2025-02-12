@@ -11,12 +11,12 @@ export interface ModelConfig {
 
 export const AVAILABLE_MODELS: ModelConfig[] = [
   {
-    id: "gemini-2.0-flash-exp",
+    id: "gemini-2.0-flash",
     name: "Gemini 2.0 Flash",
-    description: "Latest experimental flash model",
+    description: "Latest flash model",
     maxTokens: 32768,
     contextLength: 32768,
-    provider: "gemini"
+    provider: "gemini",
   },
   {
     id: "gemini-exp-1206",
@@ -24,25 +24,34 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     description: "Experimental model from December 2023",
     maxTokens: 32768,
     contextLength: 32768,
-    provider: "gemini"
+    provider: "gemini",
   },
   {
-    id: "gemini-2.0-flash-thinking-exp-1219",
+    id: "gemini-2.0-flash-thinking-exp-01-21",
     name: "Gemini 2.0 Flash Thinking",
     description: "Experimental thinking-optimized model",
     maxTokens: 32768,
     contextLength: 32768,
-    provider: "gemini"
+    provider: "gemini",
+  },
+  {
+    id: "gemini-2.0-pro-exp-02-05",
+    name: "Gemini 2.0 Pro",
+    description: "Latest Gemini 2.0 Pro experimental model (February 2024)",
+    maxTokens: 32768,
+    contextLength: 32768,
+    provider: "gemini",
   },
   {
     id: "meta-llama/Llama-3.2-3B-Instruct",
     name: "Llama 3.2",
-    description: "Meta's Llama 3.2 3B model optimized for instruction following",
+    description:
+      "Meta's Llama 3.2 3B model optimized for instruction following",
     maxTokens: 4096,
     contextLength: 131072,
     provider: "hyperbolic",
     temperature: 0.7,
-    top_p: 0.9
+    top_p: 0.9,
   },
   {
     id: "Qwen/Qwen2.5-Coder-32B-Instruct",
@@ -52,7 +61,7 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     contextLength: 512,
     provider: "hyperbolic",
     temperature: 0.1,
-    top_p: 0.9
+    top_p: 0.9,
   },
 ];
 

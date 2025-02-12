@@ -15,7 +15,7 @@ export default [
       globals: globals.browser,
       parser: parser,
       parserOptions: {
-        project: "./tsconfig.json",
+        project: "./tsconfig.app.json",
       },
     },
     plugins: {
@@ -31,5 +31,5 @@ export default [
       ],
       ...eslintPlugin.configs.recommended.rules,
     },
-  }
+  },
 ];
