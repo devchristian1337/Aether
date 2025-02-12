@@ -27,17 +27,20 @@ A modern React-based chat application that leverages Google's Generative AI (Gem
 The application supports multiple AI models:
 
 ### Gemini Models
+
 - **Gemini 2.0 Flash** (Default) - Latest flash model
 - **Gemini Experimental 1206** - Experimental model from December 2023
 - **Gemini 2.0 Flash Thinking** - Experimental thinking-optimized model
 - **Gemini 2.0 Pro** - Latest Gemini 2.0 Pro experimental model
 
 ### Other Models
+
 - **Llama 3.2** - Meta's Llama 3.2 3B model optimized for instruction following
 - **Qwen 2.5 Coder** - Qwen 2.5 32B model optimized for coding tasks
 - **DeepSeek V3** - DeepSeek's latest V3 model for general-purpose tasks
 
 Model capabilities vary:
+
 - Gemini models support up to 32,768 tokens
 - Llama 3.2 and DeepSeek V3 support up to 131,072 context length with 4,096 max tokens
 - Qwen 2.5 Coder has 512 tokens for both context and output
@@ -65,12 +68,14 @@ Model capabilities vary:
 ## Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd <project-directory>
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 # or
@@ -78,12 +83,14 @@ yarn install
 ```
 
 3. Create a `.env` file in the root directory and add your Gemini API key:
+
 ```env
 VITE_GEMINI_API_KEY=your_api_key_here      <!--  https://aistudio.google.com/apikey   -->
 VITE_HYPERBOLIC_API_KEY=your_api_key_here  <!--  https://app.hyperbolic.xyz/settings  -->
 ```
 
 4. Start the development server:
+
 ```bash
 npm run dev
 # or
@@ -121,6 +128,7 @@ src/
 ## Features in Detail
 
 ### Chat Interface
+
 - Real-time conversation with AI
 - GitHub-flavored Markdown rendering
 - Syntax highlighting for code blocks
@@ -130,6 +138,7 @@ src/
 - Error handling with visual feedback
 
 ### File Handling
+
 - Drag and drop file upload with visual feedback
 - Click to upload functionality
 - File size validation (configurable limits)
@@ -138,6 +147,7 @@ src/
 - Supported file types: images, PDFs, docs, text files
 
 ### UI/UX Features
+
 - Responsive design for all screen sizes
 - Dark mode with smooth transitions
 - Loading states with animations
@@ -148,6 +158,7 @@ src/
 - Tooltips for enhanced usability
 
 ### Accessibility
+
 - ARIA labels for all interactive elements
 - Keyboard navigation support
 - Focus management
