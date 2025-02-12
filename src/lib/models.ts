@@ -63,6 +63,16 @@ export const AVAILABLE_MODELS: ModelConfig[] = [
     temperature: 0.1,
     top_p: 0.9,
   },
+  {
+    id: "deepseek-ai/DeepSeek-V3",
+    name: "DeepSeek V3",
+    description: "DeepSeek's latest V3 model for general-purpose tasks",
+    maxTokens: 4096,
+    contextLength: 131072,
+    provider: "hyperbolic",
+    temperature: 0.7,
+    top_p: 0.9,
+  },
 ];
 
 export const DEFAULT_MODEL = AVAILABLE_MODELS[0];
