@@ -1,4 +1,4 @@
-# AI Chat Application with File Support
+# Aether
 
 ![Aether Preview](https://iili.io/2rMvPus.png)
 
